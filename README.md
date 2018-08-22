@@ -1,2 +1,2 @@
 # android-splash
-启动画面
+App启动画面,包含Image, gif, video三种方式
