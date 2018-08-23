@@ -7,21 +7,21 @@ import android.view.View
  * Created by silen on 2018/8/22 22:51
  * Copyright (c) 2018 in FORETREE
  */
-class SplashView(private val context: Context): Splash{
+class SplashView(private val context: Context): Splash<String>{
     private var mView: View? = null
 
-    override fun prepare(filePath: String) {
-        mView = when(Extension.valueOf(FilenameUtils.getExtension(filePath))) {
+    override fun prepare(res: String) {
+        mView = when(Extension.valueOf(FilenameUtils.getExtension(res))) {
             Extension.mp4,Extension.mov -> {
-                SplashVideoView(filePath, context)
+                SplashVideoView(res, context)
             }
             Extension.png,
             Extension.jpg,
             Extension.jpeg -> {
-                SplashImageView(filePath, context)
+                SplashImageView(res, context)
             }
             Extension.gif -> {
-                SplashGifView(filePath, context)
+                SplashGifView(res, context)
             }
         }
     }

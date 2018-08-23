@@ -2,6 +2,7 @@ package com.foretree.support.lib
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.DrawableRes
 
 /**
  * Created by silen on 2018/8/22 8:20
@@ -40,8 +41,22 @@ class SplashHelper private constructor(
     }
 
     fun where(filePath: String) : SplashHelper{
-        mView = mFactory.create(mParent.context).apply {
+        mView = (mFactory as SimpleSplashFactory).create(mParent.context).apply {
             prepare(filePath)
+        }.getView()?.apply {
+            setOnClickListener(mListener)
+            mDuration = if (mFactory.getDuration() <= 0 && (this is Control)) {
+                (this as Control).getDuration()
+            } else {
+                defaultDuration
+            }
+        }
+        return this
+    }
+
+    fun res(@DrawableRes drawableRes: Int): SplashHelper {
+        mView = (mFactory as ResSplashFactory).create(mParent.context).apply {
+            prepare(drawableRes)
         }.getView()?.apply {
             setOnClickListener(mListener)
             mDuration = if (mFactory.getDuration() <= 0 && (this is Control)) {
